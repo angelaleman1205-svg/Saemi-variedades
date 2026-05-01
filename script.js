@@ -8,6 +8,7 @@ const cartCount = document.getElementById('cartCount');
 const checkoutButton = document.querySelector('.checkout-button');
 const navLinks = document.querySelectorAll('.nav-link');
 const productCards = document.querySelectorAll('.product-card');
+const siteHeader = document.querySelector('.site-header');
 
 let cart = [];
 
@@ -24,6 +25,14 @@ function closeCart() {
 openCartBtn.addEventListener('click', openCart);
 closeCartBtn.addEventListener('click', closeCart);
 overlay.addEventListener('click', closeCart);
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    siteHeader.classList.add('scrolled');
+  } else {
+    siteHeader.classList.remove('scrolled');
+  }
+});
 
 function formatPrice(price) {
   return `$${price.toLocaleString('es-CO')}`;

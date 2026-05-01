@@ -15,7 +15,7 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
-  background: linear-gradient(180deg, #fdf3ff 0%, #fff 45%, #f8f1ff 100%);
+  background: linear-gradient(180deg, #fce4ec 0%, #fff 45%, #f8bbd9 100%);
   color: var(--text);
 }
 
@@ -32,6 +32,42 @@ img {
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
   border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.site-header.scrolled {
+  padding: 0.5rem 0;
+}
+
+.site-header.scrolled .brand-row {
+  padding: 0.5rem 1.25rem;
+}
+
+.site-header.scrolled .logo {
+  width: 50px;
+  height: 50px;
+}
+
+.site-header.scrolled .brand-row h1 {
+  font-size: 1.1rem;
+}
+
+.site-header.scrolled .brand-row p {
+  font-size: 0.8rem;
+}
+
+.site-header.scrolled .main-nav {
+  padding: 0 1.25rem 0.5rem;
+}
+
+.site-header.scrolled .main-nav a {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.site-header.scrolled .cart-button {
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
 }
 
 .brand-row {
