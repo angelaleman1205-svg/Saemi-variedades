@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saemi Variedades</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-row">
+      <div class="logo-wrap">
+        <img src="img/logo.png" alt="Logo Saemi Variedades" class="logo" />
+        <div>
+          <h1>Saemi Variedades</h1>
+          <p>Lo que buscas, aquí lo encuentras</p>
+        </div>
+      </div>
+      <button class="cart-button" id="openCartBtn">
+        Carrito <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#productos" class="nav-link" data-category="all">Todos</a>
+      <a href="#productos" class="nav-link" data-category="niños">Niños</a>
+      <a href="#productos" class="nav-link" data-category="hombres">Hombres</a>
+      <a href="#productos" class="nav-link" data-category="mujeres">Mujeres</a>
+      <a href="#productos" class="nav-link" data-category="electrodomesticos">Electrodomésticos</a>
+      <a href="#productos" class="nav-link" data-category="hogar">Hogar</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h2>Bienvenido a Saemi Variedades</h2>
+        <p>Encuentra una gran variedad de productos para toda la familia y paga con Nequi o Visa.</p>
+      </div>
+    </section>
+
+    <section class="products-section" id="productos">
+      <div class="section-header">
+        <h3>Productos destacados</h3>
+        <p>Selecciona una categoría en el menú para filtrar los productos.</p>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/body-1.jpeg" alt="Body polilicra doble">
+          <div class="product-info">
+            <h4>Body Rosado</h4>
+            <p class="price">$30.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/body-2.jpeg" alt="Body polilicra">
+          <div class="product-info">
+            <h4>Body Camel</h4>
+            <p class="price">$27.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/body-3.jpeg" alt="Body Colombia">
+          <div class="product-info">
+            <h4>Body Colombia</h4>
+            <p class="price">$30.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/top-1.jpeg" alt="Top Tamara gris azulado">
+          <div class="product-info">
+            <h4>Top Tamara</h4>
+            <p class="price">$20.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/top-2.jpeg" alt="Top Noah camel">
+          <div class="product-info">
+            <h4>Top Noah Camel</h4>
+            <p class="price">$30.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/top-3.jpeg" alt="Top Esperanza vinotinto">
+          <div class="product-info">
+            <h4>Top Esperanza</h4>
+            <p class="price">$25.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/combo-1.jpeg" alt="Combo:(body talla unica + splash tapa dorada + pinza hawaiiana + polvo compacto + tinta stich)">
+          <div class="product-info">
+            <h4>Combo Belleza Especial</h4>
+            <p class="price">$67.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/combo-2.jpeg" alt="Splash + Mantequilla fragancia">
+          <div class="product-info">
+            <h4>Splash + Mantequilla</h4>
+            <p class="price">$32.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/buzo-naia.jpeg" alt="Buzo Naia blanco, rosado, rojo y azul bebe">
+          <div class="product-info">
+            <h4>Buzo Naia Blanco</h4>
+            <p class="price">$35.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="mujeres">
+          <img src="img/productos/falda.jpeg" alt="Falda globo camel">
+          <div class="product-info">
+            <h4>Falda Globo Camel</h4>
+            <p class="price">$35.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="electrodomesticos">
+          <img src="img/productos/bafle.jpeg" alt="Bafle Bluetooth con 2 microfonos">
+          <div class="product-info">
+            <h4>Bafle Rosado Bluetooth</h4>
+            <p class="price">$40.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="electrodomesticos">
+          <img src="img/productos/licuadora.jpeg" alt="Mini licuadora azul">
+          <div class="product-info">
+            <h4>Mini Licuadora Azul</h4>
+            <p class="price">$30.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="electrodomesticos">
+          <img src="img/productos/audifonos.jpeg" alt="EarPods USB-C">
+          <div class="product-info">
+            <h4>EarPods USB-C Apple</h4>
+            <p class="price">$14.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="niños">
+          <img src="img/productos/arte.jpeg" alt="Mega set de arte 208 piezas azul">
+          <div class="product-info">
+            <h4>Mega Set de Arte 208 Pzas</h4>
+            <p class="price">$55.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="niños">
+          <img src="img/productos/tablero.jpeg" alt="Tablero didáctico Kuromi">
+          <div class="product-info">
+            <h4>Tablero Didáctico Kuromi</h4>
+            <p class="price">$22.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="niños">
+          <img src="img/productos/lonchera.jpeg" alt="Lonchera Encanto">
+          <div class="product-info">
+            <h4>Lonchera Encanto</h4>
+            <p class="price">$10.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="niños">
+          <img src="img/productos/bolso.jpeg" alt="Set bolso infantil 3 en 1">
+          <div class="product-info">
+            <h4>Bolso Infantil 3 en 1</h4>
+            <p class="price">$50.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="niños">
+          <img src="img/productos/slime.jpeg" alt="Slime fresa con destello">
+          <div class="product-info">
+            <h4>Slime Fresa con Destello</h4>
+            <p class="price">$13.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="hogar">
+          <img src="img/productos/luces.jpeg" alt="Set luces LED espejo Hollywood">
+          <div class="product-info">
+            <h4>Luces LED Espejo Hollywood</h4>
+            <p class="price">$39.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="hogar">
+          <img src="img/productos/secador.jpeg" alt="Combo cuidado cabello secador plancha cepillo">
+          <div class="product-info">
+            <h4>Combo 3en1 Cuidado Cabello</h4>
+            <p class="price">$160.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="hogar">
+          <img src="img/productos/plancha.jpeg" alt="Plancha para cabello">
+          <div class="product-info">
+            <h4>Plancha Cabello</h4>
+            <p class="price">$65.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="hogar">
+          <img src="img/productos/cepillo.jpeg" alt="Cepillo secador para cabello">
+          <div class="product-info">
+            <h4>Cepillo Secador Cabello</h4>
+            <p class="price">$55.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="hogar">
+          <img src="img/productos/secador.jpeg" alt="Secador para cabello">
+          <div class="product-info">
+            <h4>Secador Cabello Profesional</h4>
+            <p class="price">$60.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="hogar">
+          <img src="img/productos/cepillo2.jpeg" alt="cepillo secador de keratina">
+          <div class="product-info">
+            <h4>Cepillo secador de keratina</h4>
+            <p class="price">$55.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+        
+        <article class="product-card" data-category="hogar">
+          <img src="img/productos/cepillo3.jpeg" alt="cepillo secador de aguacate">
+          <div class="product-info">
+            <h4>Cepillo secador y moldeador Remington</h4>
+            <p class="price">$55.000</p>
+            <button class="add-to-cart">Agregar al carrito</button>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+  </main>
+
+  <aside class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h3>Tu carrito</h3>
+      <button class="close-cart" id="closeCartBtn">Cerrar</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+      <p class="empty-message">No has agregado productos aún.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+      <div class="payment-methods">
+        <h4>Formas de pago</h4>
+        <div class="payment-item">
+          <span class="method-name">Nequi</span>
+          <strong>3216620935</strong>
+        </div>
+        <div class="payment-item visa">
+          <span class="method-name">Visa</span>
+          <span>Tarjeta de débito / crédito</span>
+        </div>
+      </div>
+      <button class="checkout-button" disabled>Finalizar compra</button>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+  <script src="script.js"></script>
+</body>
+</html>
