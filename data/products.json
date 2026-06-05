@@ -1,0 +1,20 @@
+[
+  { "id": "p1", "name": "Body Rosado", "price": 30000, "category": "mujeres", "image": "/img/productos/body-1.jpeg" },
+  { "id": "p2", "name": "Body Camel", "price": 27000, "category": "mujeres", "image": "/img/productos/body-2.jpeg" },
+  { "id": "p3", "name": "Body Colombia", "price": 30000, "category": "mujeres", "image": "/img/productos/body-3.jpeg" },
+  { "id": "p4", "name": "Top Tamara", "price": 20000, "category": "mujeres", "image": "/img/productos/top-1.jpeg" },
+  { "id": "p5", "name": "Top Noah Camel", "price": 30000, "category": "mujeres", "image": "/img/productos/top-2.jpeg" },
+  { "id": "p6", "name": "Top Esperanza", "price": 25000, "category": "mujeres", "image": "/img/productos/top-3.jpeg" },
+  { "id": "p7", "name": "Combo Belleza Especial", "price": 67000, "category": "mujeres", "image": "/img/productos/combo-1.jpeg" },
+  { "id": "p8", "name": "Splash + Mantequilla", "price": 32000, "category": "mujeres", "image": "/img/productos/combo-2.jpeg" },
+  { "id": "p9", "name": "Buzo Naia Blanco", "price": 35000, "category": "hombres", "image": "/img/productos/buzo-naia.jpeg" },
+  { "id": "p10", "name": "Falda Globo Camel", "price": 35000, "category": "mujeres", "image": "/img/productos/falda.jpeg" },
+  { "id": "p11", "name": "Bafle Rosado Bluetooth", "price": 40000, "category": "electrodomesticos", "image": "/img/productos/bafle.jpeg" },
+  { "id": "p12", "name": "Mini Licuadora Azul", "price": 30000, "category": "electrodomesticos", "image": "/img/productos/licuadora.jpeg" },
+  { "id": "p13", "name": "EarPods USB-C Apple", "price": 14000, "category": "electrodomesticos", "image": "/img/productos/audifonos.jpeg" },
+  { "id": "p14", "name": "Mega Set de Arte 208 Pzas", "price": 55000, "category": "niños", "image": "/img/productos/arte.jpeg" },
+  { "id": "p15", "name": "Tablero Didáctico Kuromi", "price": 22000, "category": "niños", "image": "/img/productos/tablero.jpeg" },
+  { "id": "p16", "name": "Lonchera Encanto", "price": 10000, "category": "niños", "image": "/img/productos/lonchera.jpeg" },
+  { "id": "p17", "name": "Bolso Infantil 3 en 1", "price": 50000, "category": "niños", "image": "/img/productos/bolso.jpeg" },
+  { "id": "p19", "name": "Plancha de Vapor", "price": 72000, "category": "hogar", "image": "/img/productos/plancha.jpeg" }
+]

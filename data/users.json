@@ -1,0 +1,5 @@
+[
+  { "id": "u1", "email": "angelaleman1205@gmail.com", "name": "Admin", "address": "Oficina central", "phone": "3000000001", "role": "admin" },
+  { "id": "u2", "email": "dueño@saemi.com", "name": "Dueño", "address": "Tienda principal", "phone": "3000000002", "role": "dueño" },
+  { "id": "u3", "email": "cliente@saemi.com", "name": "Cliente", "address": "Calle 123", "phone": "3000000003", "role": "cliente" }
+]
