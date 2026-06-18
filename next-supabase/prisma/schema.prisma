@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  email        String    @unique
+  passwordHash String?   @map("password_hash")
+  role         String    @default("cliente")
+  address      String?
+  phone        String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  orders       Order[]
+}
+
+model Product {
+  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String
+  description String?    
+  price      Decimal     @db.Decimal(10, 2)
+  category   String
+  imageUrl   String?     @map("image_url")
+  stock      Int         @default(0)
+  createdAt  DateTime    @default(now()) @map("created_at")
+  orderItems OrderItem[]
+}
+
+model Order {
+  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId    String?     @db.Uuid
+  address   String
+  total     Decimal     @db.Decimal(10, 2)
+  status    String      @default("Pendiente")
+  createdAt DateTime    @default(now()) @map("created_at")
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String   @db.Uuid
+  quantity  Int      @default(1)
+  unitPrice Decimal  @db.Decimal(10, 2) @map("unit_price")
+  createdAt DateTime @default(now()) @map("created_at")
+}

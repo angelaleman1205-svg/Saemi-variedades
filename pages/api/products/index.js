@@ -1,9 +1,8 @@
-import { readData, writeData } from '../../../lib/db';
+import { createRecord, readData } from '../../../lib/db';
 
 export default async function handler(req, res) {
-  const products = await readData('products');
-
   if (req.method === 'GET') {
+    const products = await readData('products');
     return res.status(200).json(products);
   }
 
@@ -13,16 +12,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Faltan datos obligatorios' });
     }
 
-    const newProduct = {
-      id: `p${Date.now()}`,
+    const newProduct = await createRecord('products', {
       name,
       price: Number(price),
       category,
       image: image || '/img/productos/top-1.jpeg'
-    };
-
-    products.push(newProduct);
-    await writeData('products', products);
+    });
     return res.status(201).json(newProduct);
   }
 

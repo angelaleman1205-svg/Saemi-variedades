@@ -23,6 +23,7 @@ export default function Home() {
   const [authGateActive, setAuthGateActive] = useState(true);
   const [authMode, setAuthMode] = useState('login');
   const [authEmail, setAuthEmail] = useState('');
+  const [authPassword, setAuthPassword] = useState('');
   const [authName, setAuthName] = useState('');
   const [authAddress, setAuthAddress] = useState('');
   const [authPhone, setAuthPhone] = useState('');
@@ -38,6 +39,7 @@ export default function Home() {
 
   const cartCount = cart.reduce((sum, product) => sum + product.quantity, 0);
   const cartTotal = cart.reduce((sum, product) => sum + product.quantity * product.price, 0);
+  const canSeeAllOrders = ['admin', 'dueno', 'dueño'].includes(String(currentUser?.role || '').trim().toLowerCase());
 
   useEffect(() => {
     if (!googleClientId || typeof window === 'undefined') return;
@@ -106,10 +108,11 @@ export default function Home() {
     setShowAuth(false);
     setMobileMenuOpen(false);
     setAuthEmail('');
+    setAuthPassword('');
     setAuthName('');
     setAuthAddress('');
     setAuthPhone('');
-    fetchOrders();
+    fetchOrders(data);
     showToast(`Bienvenido, ${data.name}`);
   }
 
@@ -118,9 +121,10 @@ export default function Home() {
     const savedUser = typeof window !== 'undefined' ? localStorage.getItem('saemi-current-user') : null;
     const savedCart = typeof window !== 'undefined' ? localStorage.getItem('saemi-cart') : null;
     if (savedUser) {
-      setCurrentUser(JSON.parse(savedUser));
+      const parsedUser = JSON.parse(savedUser);
+      setCurrentUser(parsedUser);
       setAuthGateActive(false);
-      fetchOrders();
+      fetchOrders(parsedUser);
     } else {
       setShowAuth(true);
       setAuthGateActive(true);
@@ -158,8 +162,17 @@ export default function Home() {
     setProducts(data);
   }
 
-  async function fetchOrders() {
-    const response = await fetch('/api/orders');
+  async function fetchOrders(user = currentUser) {
+    if (!user?.id) {
+      setOrders([]);
+      return;
+    }
+
+    const params = new URLSearchParams({
+      userId: user.id,
+      role: user.role || 'cliente'
+    });
+    const response = await fetch(`/api/orders?${params.toString()}`);
     if (response.ok) {
       const data = await response.json();
       setOrders(data);
@@ -190,34 +203,54 @@ export default function Home() {
   };
 
   const handleLogin = async () => {
-    if (!authEmail.trim()) {
-      showToast('Ingresa un correo para iniciar sesión.');
-      return;
-    }
-    const response = await fetch(`/api/users?email=${encodeURIComponent(authEmail)}`);
+  if (!authEmail.trim() || !authPassword.trim()) {
+    showToast('Ingresa correo y contraseña.');
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: authEmail,
+        password: authPassword
+      })
+    });
+
+    const data = await response.json();
+
     if (!response.ok) {
-      const body = await response.json();
-      showToast(body.error || 'Usuario no encontrado');
+      showToast(data.error || 'Error al iniciar sesión');
       return;
     }
-    const user = await response.json();
-    setCurrentUser(user);
+
+    setCurrentUser(data);
     setAuthGateActive(false);
     setShowAuth(false);
     setMobileMenuOpen(false);
-    showToast(`Bienvenido de nuevo, ${user.name}`);
-    fetchOrders();
-  };
+    setAuthPassword('');
+
+    showToast(`Bienvenido de nuevo, ${data.name}`);
+
+    fetchOrders(data);
+  } catch (error) {
+    console.error(error);
+    showToast('No se pudo conectar con el servidor');
+  }
+};
 
   const handleRegister = async () => {
-    if (!authName.trim() || !authEmail.trim() || !authAddress.trim() || !authPhone.trim()) {
+    if (!authName.trim() || !authEmail.trim() || !authPassword.trim() || !authAddress.trim() || !authPhone.trim()) {
       showToast('Completa todos los campos para registrarte.');
       return;
     }
     const response = await fetch('/api/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: authName, email: authEmail, address: authAddress, phone: authPhone })
+      body: JSON.stringify({ name: authName, email: authEmail, password: authPassword, address: authAddress, phone: authPhone })
     });
     const body = await response.json();
     if (!response.ok) {
@@ -228,8 +261,9 @@ export default function Home() {
     setAuthGateActive(false);
     setShowAuth(false);
     setMobileMenuOpen(false);
+    setAuthPassword('');
     showToast('Cuenta creada correctamente.');
-    fetchOrders();
+    fetchOrders(body);
   };
 
   const handleCheckout = async () => {
@@ -254,12 +288,13 @@ export default function Home() {
       return;
     }
     setCart([]);
-    fetchOrders();
+    fetchOrders(currentUser);
     showToast('Pedido creado correctamente.');
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
+    setOrders([]);
     setAuthGateActive(true);
     setShowAuth(true);
     showToast('Has cerrado sesión.');
@@ -391,7 +426,7 @@ export default function Home() {
             </div>
             <div className="panel card">
               <div className="panel-header">
-                <h4>Pedidos recientes</h4>
+                <h4>{canSeeAllOrders ? 'Pedidos pendientes' : 'Mis pedidos'}</h4>
               </div>
               <div className="panel-content">
                 {orders.length === 0 ? (
@@ -438,6 +473,9 @@ export default function Home() {
               <div className="tab-panel">
                 <label htmlFor="loginEmail">Correo electrónico</label>
                 <input id="loginEmail" type="email" value={authEmail} onChange={(event) => setAuthEmail(event.target.value)} placeholder="usuario@ejemplo.com" />
+
+                <label htmlFor="loginPassword">Contraseña</label>
+                <input id="loginPassword" type="password" value={authPassword} onChange={(event) => setAuthPassword(event.target.value)} placeholder="********" /> 
                 <button className="primary-button" onClick={handleLogin}>Iniciar sesión</button>
               </div>
             ) : (
@@ -450,6 +488,8 @@ export default function Home() {
                 <input id="registerPhone" type="tel" value={authPhone} onChange={(event) => setAuthPhone(event.target.value)} />
                 <label htmlFor="registerEmail">Correo electrónico</label>
                 <input id="registerEmail" type="email" value={authEmail} onChange={(event) => setAuthEmail(event.target.value)} />
+                <label htmlFor="registerPassword">Contraseña</label>
+                <input id="registerPassword" type="password" value={authPassword} onChange={(event) => setAuthPassword(event.target.value)} placeholder="********" />
                 <button className="primary-button" onClick={handleRegister}>Registrar cuenta</button>
               </div>
             )}

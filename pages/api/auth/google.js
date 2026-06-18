@@ -1,4 +1,4 @@
-import { readData, writeData } from '../../../lib/db';
+import { createRecord, readData } from '../../../lib/db';
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
@@ -34,15 +34,13 @@ export default async function handler(req, res) {
 
   if (!user) {
     user = {
-      id: `u${Date.now()}`,
       name: payload.name || email.split('@')[0],
       email,
       address: '',
       phone: '',
       role: 'cliente'
     };
-    users.push(user);
-    await writeData('users', users);
+    user = await createRecord('users', user);
   }
 
   return res.status(200).json(user);

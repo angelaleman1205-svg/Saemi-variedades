@@ -1,194 +1,205 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saemi Variedades</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <div class="brand-row">
-      <div class="logo-wrap">
-        <img src="img/logo.png" alt="Logo Saemi Variedades" class="logo" />
-        <div>
-          <h1>Saemi Variedades</h1>
-          <p>Lo que buscas, aquí lo encuentras</p>
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saemi Variedades</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand-row">
+        <div class="logo-wrap">
+          <img src="img/logo.png" alt="Logo Saemi Variedades" class="logo" />
+          <div>
+            <h1>Saemi Variedades</h1>
+            <p>Lo que buscas, aquí lo encuentras</p>
+          </div>
         </div>
-      </div>
-      <button class="hamburger" id="menuToggle" aria-label="Menú">
-        ☰
-      </button>
-      <div class="header-actions">
-        <button class="cart-button" id="openCartBtn">
-          Carrito <span class="badge" id="cartCount">0</span>
+        <button class="hamburger" id="menuToggle" aria-label="Menú">
+          ☰
         </button>
-        <div class="auth-area" id="authArea">
-          <span class="welcome-text" id="welcomeMessage">Bienvenido</span>
-          <button class="auth-button" id="loginBtn">Iniciar sesión</button>
-          <button class="auth-button hidden" id="logoutBtn">Cerrar sesión</button>
+        <div class="header-actions">
+          <button class="cart-button" id="openCartBtn">
+            Carrito <span class="badge" id="cartCount">0</span>
+          </button>
+          <div class="auth-area" id="authArea">
+            <span class="welcome-text" id="welcomeMessage">Bienvenido</span>
+            <button class="auth-button" id="loginBtn">Iniciar sesión</button>
+            <button class="auth-button hidden" id="logoutBtn">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <a href="#productos" class="nav-link active" data-category="all">Todos</a>
+        <a href="#productos" class="nav-link" data-category="niños">Niños</a>
+        <a href="#productos" class="nav-link" data-category="hombres">Hombres</a>
+        <a href="#productos" class="nav-link" data-category="mujeres">Mujeres</a>
+        <a href="#productos" class="nav-link" data-category="electrodomesticos">Electrodomésticos</a>
+        <a href="#productos" class="nav-link" data-category="hogar">Hogar</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <h2>Bienvenido a Saemi Variedades</h2>
+          <p>Encuentra una gran variedad de productos para toda la familia y paga con Nequi o Visa.</p>
+        </div>
+      </section>
+      <section class="products-section" id="productos">
+        <div class="section-header">
+          <h3>Productos destacados</h3>
+          <p>Selecciona una categoría en el menú para filtrar los productos.</p>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+      <section class="dashboard-section hidden" id="managerPanel">
+        <div class="section-header">
+          <h3>Panel del dueño</h3>
+          <p>Administra productos y pedidos directamente desde la página.</p>
+        </div>
+        <div class="dashboard-grid">
+          <div class="panel card">
+            <div class="panel-header">
+              <h4>Productos</h4>
+              <button class="secondary-button" id="addProductBtn">Agregar producto</button>
+            </div>
+            <div class="panel-content" id="productManagerList"></div>
+          </div>
+          <div class="panel card">
+            <div class="panel-header">
+              <h4>Pedidos pendientes y compras</h4>
+            </div>
+            <div class="panel-content" id="ordersPanelContent"></div>
+          </div>
+        </div>
+      </section>
+      <section class="dashboard-section hidden" id="adminPanel">
+        <div class="section-header">
+          <h3>Panel Admin</h3>
+          <p>Acceso completo al editor de datos, usuarios y permisos.</p>
+        </div>
+        <div class="dashboard-grid">
+          <div class="panel card">
+            <div class="panel-header">
+              <h4>Editor de datos</h4>
+            </div>
+            <div class="panel-content">
+              <p>Actualiza productos, pedidos y roles desde aquí.</p>
+              <textarea id="codeEditor" rows="10"></textarea>
+              <button class="secondary-button" id="saveCodeBtn">Guardar cambios</button>
+            </div>
+          </div>
+          <div class="panel card">
+            <div class="panel-header">
+              <h4>Usuarios y permisos</h4>
+            </div>
+            <div class="panel-content" id="permissionsPanel"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <aside class="cart-panel" id="cartPanel">
+      <div class="cart-header">
+        <h3>Tu carrito</h3>
+        <button class="close-cart" id="closeCartBtn">Cerrar</button>
+      </div>
+      <div class="cart-content" id="cartContent">
+        <p class="empty-message">No has agregado productos aún.</p>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cartTotal">$0</strong>
+        </div>
+        <p class="cart-warning hidden" id="cartWarning">Debes iniciar sesión o registrarte para finalizar tu compra.</p>
+        <div class="payment-methods">
+          <h4>Formas de pago</h4>
+          <div class="payment-item">
+            <span class="method-name">Nequi</span>
+            <strong>3216620935</strong>
+          </div>
+          <div class="payment-item visa">
+            <span class="method-name">Visa</span>
+            <span>Tarjeta de débito / crédito</span>
+          </div>
+        </div>
+        <button class="checkout-button" id="checkoutBtn" disabled>Finalizar compra</button>
+      </div>
+    </aside>
+    <button class="floating-cart" id="floatingCart" title="Abrir carrito">
+      <span class="floating-icon">🛒</span>
+      <span class="floating-badge" id="floatingCartCount">0</span>
+    </button>
+    <div class="toast" id="toast"></div>
+    <div class="modal hidden" id="authModal">
+      <div class="modal-content">
+        <button class="close-modal" id="closeAuthModal">×</button>
+        <h3 id="authModalTitle">Iniciar sesión</h3>
+        <div class="modal-tabs">
+          <button class="tab active" data-tab="login">Login</button>
+          <button class="tab" data-tab="register">Registrarse</button>
+        </div>
+        <div class="tab-panel" id="loginTab">
+          <form id="loginForm">
+            <label for="loginEmail">Correo electrónico</label>
+            <input
+             type="email"
+             id="loginEmail"
+             required
+             placeholder="usuario@ejemplo.com">
+              <label for="loginPassword">Contraseña</label>
+              <input
+               type="password"
+               id="loginPassword"
+               required
+               placeholder="contraseña">
+               
+            <button type="submit" class="primary-button">Iniciar sesión</button>
+          </form>
+          <div class="divider">o</div>
+          <p class="small-note">Usa tu correo para iniciar sesión o crea una cuenta con tu dirección de residencia.</p>
+        </div>
+        <div class="tab-panel hidden" id="registerTab">
+          <form id="registerForm">
+            <label for="registerName">Nombre completo</label>
+            <input type="text" id="registerName" required>
+            <label for="registerAddress">Dirección de entrega</label>
+            <input type="text" id="registerAddress" required>
+            <label for="registerPhone">Número de teléfono</label>
+            <input type="tel" id="registerPhone" required>
+            <label for="registerEmail">Correo electrónico</label>
+            <input type="email" id="registerEmail" required>
+            <button type="submit" class="primary-button">Registrar cuenta</button>
+          </form>
         </div>
       </div>
     </div>
-    <nav class="main-nav" id="mainNav">
-      <a href="#productos" class="nav-link active" data-category="all">Todos</a>
-      <a href="#productos" class="nav-link" data-category="niños">Niños</a>
-      <a href="#productos" class="nav-link" data-category="hombres">Hombres</a>
-      <a href="#productos" class="nav-link" data-category="mujeres">Mujeres</a>
-      <a href="#productos" class="nav-link" data-category="electrodomesticos">Electrodomésticos</a>
-      <a href="#productos" class="nav-link" data-category="hogar">Hogar</a>
-    </nav>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <h2>Bienvenido a Saemi Variedades</h2>
-        <p>Encuentra una gran variedad de productos para toda la familia y paga con Nequi o Visa.</p>
-      </div>
-    </section>
-    <section class="products-section" id="productos">
-      <div class="section-header">
-        <h3>Productos destacados</h3>
-        <p>Selecciona una categoría en el menú para filtrar los productos.</p>
-      </div>
-      <div class="product-grid" id="productGrid"></div>
-    </section>
-    <section class="dashboard-section hidden" id="managerPanel">
-      <div class="section-header">
-        <h3>Panel del dueño</h3>
-        <p>Administra productos y pedidos directamente desde la página.</p>
-      </div>
-      <div class="dashboard-grid">
-        <div class="panel card">
-          <div class="panel-header">
-            <h4>Productos</h4>
-            <button class="secondary-button" id="addProductBtn">Agregar producto</button>
-          </div>
-          <div class="panel-content" id="productManagerList"></div>
-        </div>
-        <div class="panel card">
-          <div class="panel-header">
-            <h4>Pedidos pendientes y compras</h4>
-          </div>
-          <div class="panel-content" id="ordersPanelContent"></div>
-        </div>
-      </div>
-    </section>
-    <section class="dashboard-section hidden" id="adminPanel">
-      <div class="section-header">
-        <h3>Panel Admin</h3>
-        <p>Acceso completo al editor de datos, usuarios y permisos.</p>
-      </div>
-      <div class="dashboard-grid">
-        <div class="panel card">
-          <div class="panel-header">
-            <h4>Editor de datos</h4>
-          </div>
-          <div class="panel-content">
-            <p>Actualiza productos, pedidos y roles desde aquí.</p>
-            <textarea id="codeEditor" rows="10"></textarea>
-            <button class="secondary-button" id="saveCodeBtn">Guardar cambios</button>
-          </div>
-        </div>
-        <div class="panel card">
-          <div class="panel-header">
-            <h4>Usuarios y permisos</h4>
-          </div>
-          <div class="panel-content" id="permissionsPanel"></div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <aside class="cart-panel" id="cartPanel">
-    <div class="cart-header">
-      <h3>Tu carrito</h3>
-      <button class="close-cart" id="closeCartBtn">Cerrar</button>
-    </div>
-    <div class="cart-content" id="cartContent">
-      <p class="empty-message">No has agregado productos aún.</p>
-    </div>
-    <div class="cart-footer">
-      <div class="cart-total">
-        <span>Total</span>
-        <strong id="cartTotal">$0</strong>
-      </div>
-      <p class="cart-warning hidden" id="cartWarning">Debes iniciar sesión o registrarte para finalizar tu compra.</p>
-      <div class="payment-methods">
-        <h4>Formas de pago</h4>
-        <div class="payment-item">
-          <span class="method-name">Nequi</span>
-          <strong>3216620935</strong>
-        </div>
-        <div class="payment-item visa">
-          <span class="method-name">Visa</span>
-          <span>Tarjeta de débito / crédito</span>
-        </div>
-      </div>
-      <button class="checkout-button" id="checkoutBtn" disabled>Finalizar compra</button>
-    </div>
-  </aside>
-  <button class="floating-cart" id="floatingCart" title="Abrir carrito">
-    <span class="floating-icon">🛒</span>
-    <span class="floating-badge" id="floatingCartCount">0</span>
-  </button>
-  <div class="toast" id="toast"></div>
-  <div class="modal hidden" id="authModal">
-    <div class="modal-content">
-      <button class="close-modal" id="closeAuthModal">×</button>
-      <h3 id="authModalTitle">Iniciar sesión</h3>
-      <div class="modal-tabs">
-        <button class="tab active" data-tab="login">Login</button>
-        <button class="tab" data-tab="register">Registrarse</button>
-      </div>
-      <div class="tab-panel" id="loginTab">
-        <form id="loginForm">
-          <label for="loginEmail">Correo electrónico</label>
-          <input type="email" id="loginEmail" required placeholder="usuario@ejemplo.com">
-          <button type="submit" class="primary-button">Iniciar sesión</button>
+    <div class="modal hidden" id="productModal">
+      <div class="modal-content">
+        <button class="close-modal" id="closeProductModal">×</button>
+        <h3 id="productModalTitle">Agregar producto</h3>
+        <form id="productForm">
+          <label for="productName">Nombre del producto</label>
+          <input type="text" id="productName" required>
+          <label for="productPrice">Precio</label>
+          <input type="number" id="productPrice" min="0" required>
+          <label for="productCategory">Categoría</label>
+          <select id="productCategory" required>
+            <option value="mujeres">Mujeres</option>
+            <option value="hombres">Hombres</option>
+            <option value="niños">Niños</option>
+            <option value="electrodomesticos">Electrodomésticos</option>
+            <option value="hogar">Hogar</option>
+            <option value="otros">Otros</option>
+          </select>
+          <label for="productImage">URL de imagen</label>
+          <input type="text" id="productImage" placeholder="img/productos/ejemplo.jpeg" required>
+          <button type="submit" class="primary-button">Guardar producto</button>
         </form>
-        <div class="divider">o</div>
-        <p class="small-note">Usa tu correo para iniciar sesión o crea una cuenta con tu dirección de residencia.</p>
-      </div>
-      <div class="tab-panel hidden" id="registerTab">
-        <form id="registerForm">
-          <label for="registerName">Nombre completo</label>
-          <input type="text" id="registerName" required>
-          <label for="registerAddress">Dirección de entrega</label>
-          <input type="text" id="registerAddress" required>
-          <label for="registerPhone">Número de teléfono</label>
-          <input type="tel" id="registerPhone" required>
-          <label for="registerEmail">Correo electrónico</label>
-          <input type="email" id="registerEmail" required>
-          <button type="submit" class="primary-button">Registrar cuenta</button>
-        </form>
       </div>
     </div>
-  </div>
-  <div class="modal hidden" id="productModal">
-    <div class="modal-content">
-      <button class="close-modal" id="closeProductModal">×</button>
-      <h3 id="productModalTitle">Agregar producto</h3>
-      <form id="productForm">
-        <label for="productName">Nombre del producto</label>
-        <input type="text" id="productName" required>
-        <label for="productPrice">Precio</label>
-        <input type="number" id="productPrice" min="0" required>
-        <label for="productCategory">Categoría</label>
-        <select id="productCategory" required>
-          <option value="mujeres">Mujeres</option>
-          <option value="hombres">Hombres</option>
-          <option value="niños">Niños</option>
-          <option value="electrodomesticos">Electrodomésticos</option>
-          <option value="hogar">Hogar</option>
-          <option value="otros">Otros</option>
-        </select>
-        <label for="productImage">URL de imagen</label>
-        <input type="text" id="productImage" placeholder="img/productos/ejemplo.jpeg" required>
-        <button type="submit" class="primary-button">Guardar producto</button>
-      </form>
-    </div>
-  </div>
-  <div class="overlay" id="overlay"></div>
-  <script src="script.js"></script>
-</body>
-</html>
+    <div class="overlay" id="overlay"></div>
+    <script src="script.js"></script>
+  </body>
+  </html>

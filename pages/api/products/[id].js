@@ -1,16 +1,15 @@
-import { readData, writeData } from '../../../lib/db';
+import { deleteRecord, getRecord, updateRecord } from '../../../lib/db';
 
 export default async function handler(req, res) {
   const { id } = req.query;
-  const products = await readData('products');
-  const index = products.findIndex((product) => product.id === id);
+  const product = await getRecord('products', id);
 
-  if (index === -1) {
+  if (!product) {
     return res.status(404).json({ error: 'Producto no encontrado' });
   }
 
   if (req.method === 'GET') {
-    return res.status(200).json(products[index]);
+    return res.status(200).json(product);
   }
 
   if (req.method === 'PUT') {
@@ -18,20 +17,18 @@ export default async function handler(req, res) {
     if (!name || !price || !category) {
       return res.status(400).json({ error: 'Faltan datos obligatorios' });
     }
-    products[index] = {
-      ...products[index],
+    const updatedProduct = await updateRecord('products', id, {
+      ...product,
       name,
       price: Number(price),
       category,
-      image: image || products[index].image
-    };
-    await writeData('products', products);
-    return res.status(200).json(products[index]);
+      image: image || product.image
+    });
+    return res.status(200).json(updatedProduct);
   }
 
   if (req.method === 'DELETE') {
-    const deleted = products.splice(index, 1)[0];
-    await writeData('products', products);
+    const deleted = await deleteRecord('products', id);
     return res.status(200).json(deleted);
   }
 

@@ -20,6 +20,7 @@ const loginTab = document.getElementById('loginTab');
 const registerTab = document.getElementById('registerTab');
 const loginForm = document.getElementById('loginForm');
 const loginEmail = document.getElementById('loginEmail');
+const loginPassword = document.getElementById('loginPassword');
 const registerForm = document.getElementById('registerForm');
 const registerName = document.getElementById('registerName');
 const registerAddress = document.getElementById('registerAddress');
@@ -134,7 +135,7 @@ function renderProducts() {
     card.className = 'product-card';
     card.dataset.category = product.category;
     card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" onerror="this.src='img/productos/default.jpeg'">
+      <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null; this.style.display='none';">
       <div class="product-info">
         <h4>${product.name}</h4>
         <p class="price">${formatPrice(product.price)}</p>
@@ -534,10 +535,41 @@ function attachEvents() {
     tab.addEventListener('click', () => openTab(tab.dataset.tab));
   });
 
-  loginForm.addEventListener('submit', (event) => {
+  loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    loginWithEmail(loginEmail.value);
-  });
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: loginEmail.value,
+          password: loginPassword.value
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        showToast(data.error || 'Error al iniciar sesión');
+      return;
+    }
+
+    currentUser = data;
+
+    saveAll();
+    renderUserUI();
+    updateCartUI();
+    closeAuth();
+
+    showToast(`Sesión iniciada como ${data.role}.`);
+  } catch (error) {
+    console.error(error);
+    showToast('No se pudo conectar con el servidor');
+  }
+});
 
   registerForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -553,7 +585,7 @@ function attachEvents() {
       name: productName.value.trim(),
       price: Number(productPrice.value),
       category: productCategory.value,
-      image: productImage.value.trim() || 'img/productos/default.jpeg'
+      image: productImage.value.trim() || ''
     };
     if (!productData.name || !productData.price || !productData.category) {
       showToast('Completa todos los campos del producto.');

@@ -1,16 +1,15 @@
-import { readData, writeData } from '../../../lib/db';
+import { deleteRecord, getRecord, updateRecord } from '../../../lib/db';
 
 export default async function handler(req, res) {
   const { id } = req.query;
-  const users = await readData('users');
-  const index = users.findIndex((user) => user.id === id);
+  const user = await getRecord('users', id);
 
-  if (index === -1) {
+  if (!user) {
     return res.status(404).json({ error: 'Usuario no encontrado' });
   }
 
   if (req.method === 'GET') {
-    return res.status(200).json(users[index]);
+    return res.status(200).json(user);
   }
 
   if (req.method === 'PUT') {
@@ -18,21 +17,19 @@ export default async function handler(req, res) {
     if (!name || !email || !address || !phone) {
       return res.status(400).json({ error: 'Faltan datos obligatorios' });
     }
-    users[index] = {
-      ...users[index],
+    const updatedUser = await updateRecord('users', id, {
+      ...user,
       name,
       email: email.toLowerCase(),
       address,
       phone,
-      role: role || users[index].role
-    };
-    await writeData('users', users);
-    return res.status(200).json(users[index]);
+      role: role || user.role
+    });
+    return res.status(200).json(updatedUser);
   }
 
   if (req.method === 'DELETE') {
-    const deleted = users.splice(index, 1)[0];
-    await writeData('users', users);
+    const deleted = await deleteRecord('users', id);
     return res.status(200).json(deleted);
   }
 
