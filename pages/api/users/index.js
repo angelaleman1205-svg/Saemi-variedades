@@ -6,6 +6,10 @@ function withoutPassword(user) {
   return safeUser;
 }
 
+function normalizeEmail(email) {
+  return String(email || '').trim().toLowerCase();
+}
+
 export default async function handler(req, res) {
   let users = [];
   try {
@@ -18,35 +22,43 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { email } = req.query;
     if (email) {
-      const user = users.find((item) => item.email.toLowerCase() === email.toLowerCase());
+      const normalizedEmail = normalizeEmail(email);
+      const user = users.find((item) => normalizeEmail(item.email) === normalizedEmail);
       return user ? res.status(200).json(withoutPassword(user)) : res.status(404).json({ error: 'Usuario no encontrado' });
     }
+
     return res.status(200).json(users.map(withoutPassword));
   }
 
   if (req.method === 'POST') {
     const { name, email, password, address, phone, role } = req.body;
-    if (!name || !email || !password || !address || !phone) {
+    const normalizedEmail = normalizeEmail(email);
+
+    if (!name?.trim() || !normalizedEmail || !password || !address?.trim() || !phone?.trim()) {
       return res.status(400).json({ error: 'Faltan datos obligatorios' });
     }
 
-    const existing = users.find((item) => item.email.toLowerCase() === email.toLowerCase());
+    const existing = users.find((item) => normalizeEmail(item.email) === normalizedEmail);
     if (existing) {
       return res.status(409).json({ error: 'El correo ya está registrado' });
     }
 
     try {
       const newUser = await createRecord('users', {
-        name,
-        email: email.toLowerCase(),
+        name: name.trim(),
+        email: normalizedEmail,
         passwordHash: hashPassword(password),
-        address,
-        phone,
+        address: address.trim(),
+        phone: phone.trim(),
         role: role || 'cliente'
       });
-      return res.status(201).json(newUser);
+
+      return res.status(201).json(withoutPassword(newUser));
     } catch (error) {
       console.error('Error creando usuario:', error);
+      if (error.code === '23505') {
+        return res.status(409).json({ error: 'El correo ya está registrado' });
+      }
       return res.status(500).json({ error: 'No se pudo crear el usuario' });
     }
   }
