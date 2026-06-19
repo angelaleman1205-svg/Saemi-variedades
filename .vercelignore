@@ -1,0 +1,9 @@
+.next
+node_modules
+next-supabase
+data
+img
+*.code-workspace
+test_heredoc.txt
+copilot_test.txt
+estructura.txt
