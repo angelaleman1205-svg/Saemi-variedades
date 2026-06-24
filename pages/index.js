@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 const categories = [
   { id: 'all', label: 'Todos' },
-  { id: 'niños', label: 'Niños' },
+  { id: 'ninos', label: 'Niños' },
   { id: 'hombres', label: 'Hombres' },
   { id: 'mujeres', label: 'Mujeres' },
   { id: 'electrodomesticos', label: 'Electrodomésticos' },
@@ -35,7 +35,7 @@ function normalizeCategory(category) {
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/ãƒâ±|ã±|ñ/g, 'n');
+    .replace(/ÃƒÂ±|Ã±|ãƒâ±|ã±|ñ/g, 'n');
 }
 
 function readJsonStorage(key, fallback) {
