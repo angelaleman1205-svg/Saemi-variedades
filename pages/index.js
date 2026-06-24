@@ -72,6 +72,7 @@ export default function Home() {
   const [productModalOpen, setProductModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [productForm, setProductForm] = useState(emptyProductForm);
+  const [quickViewProduct, setQuickViewProduct] = useState(null);
 
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const role = normalizeRole(currentUser?.role);
@@ -583,6 +584,13 @@ export default function Home() {
                     <button className="primary-button" onClick={() => addToCart(product)}>
                       Agregar al carrito
                     </button>
+                    <button
+                      className="secondary-button"
+                      onClick={() => setQuickViewProduct(product)}
+                      style={{ marginLeft: '0.5rem' }}
+                    >
+                      Ver
+                    </button>
                   </div>
                 </div>
               </article>
@@ -798,11 +806,17 @@ export default function Home() {
         <span className="floating-badge">{cartCount}</span>
       </button>
 
-      {(cartOpen || showAuth || productModalOpen) && <div className="overlay visible" onClick={() => {
-        setCartOpen(false);
-        if (!authGateActive) setShowAuth(false);
-        closeProductModal();
-      }} />}
+      {(cartOpen || showAuth || productModalOpen || quickViewProduct) && (
+        <div
+          className="overlay visible"
+          onClick={() => {
+            setCartOpen(false);
+            if (!authGateActive) setShowAuth(false);
+            closeProductModal();
+            setQuickViewProduct(null);
+          }}
+        />
+      )}
 
       {showAuth && (
         <div className="modal">
@@ -910,6 +924,33 @@ export default function Home() {
                 Guardar producto
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {quickViewProduct && (
+        <div className="modal">
+          <div className="modal-content">
+            <button className="close-modal" onClick={() => setQuickViewProduct(null)}>
+              ×
+            </button>
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+              <img src={quickViewProduct.image} alt={quickViewProduct.name} style={{ width: 160, height: 160, objectFit: 'cover', borderRadius: 12 }} />
+              <div style={{ flex: 1 }}>
+                <h3>{quickViewProduct.name}</h3>
+                <p style={{ margin: '0.25rem 0', color: 'var(--muted)' }}>{quickViewProduct.category}</p>
+                <p style={{ margin: '0.5rem 0' }}>{quickViewProduct.description || 'Sin descripción disponible.'}</p>
+                <p style={{ fontSize: '1.1rem', fontWeight: 700 }}>{formatPrice(quickViewProduct.price)}</p>
+                <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
+                  <button className="primary-button" onClick={() => { addToCart(quickViewProduct); setQuickViewProduct(null); }}>
+                    Agregar al carrito
+                  </button>
+                  <button className="secondary-button" onClick={() => setQuickViewProduct(null)}>
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
