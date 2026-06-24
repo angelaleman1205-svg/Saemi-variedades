@@ -533,17 +533,27 @@ button:hover,
   display: grid;
   place-items: center;
   padding: 1.5rem;
+  overflow: auto;
   z-index: 40;
 }
 
 .modal-content {
   width: min(560px, 100%);
+  max-height: min(90vh, 720px);
   background: #fff;
   border-radius: 24px;
   padding: 2rem;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.16);
   position: relative;
   z-index: 50;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
 }
 
 .google-auth {
@@ -583,6 +593,19 @@ button:hover,
   border-radius: 16px;
   padding: 0.95rem 1rem;
   font-size: 1rem;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .dashboard-section {
